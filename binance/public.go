@@ -17,3 +17,16 @@ func (b *Binance) GetOrderBook(symbol string) (result OrderBookStruct, err error
 	}
 	return
 }
+
+// ExchangeInfo -
+func (b *Binance) ExchangeInfo() (result ExchangeInfoStruct, err error) {
+	response, err := b.GetURL("/api/v1/exchangeInfo", "GET", false)
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = json.Unmarshal(response, &result)
+	if err != nil {
+		return
+	}
+	return
+}
