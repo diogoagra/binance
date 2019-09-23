@@ -36,7 +36,6 @@ func regra(binance *binance.Binance, coin string) {
 
 	percent := (LBTC - BTC) * 100 / BTC
 
-	if percent > 0 {
-		fmt.Printf("%s %.3f\n", coin, percent)
-	}
+	fmt.Printf("%s %.3f\n", coin, percent)
+
 }
