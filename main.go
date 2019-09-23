@@ -9,7 +9,13 @@ func main() {
 	// binance.OrderTest("BTCUSDT", "BUY", 0.1, 10040.54)
 
 	for {
-		regraLTC(binance)
-		regraXRP(binance)
+		regra(binance, "LTC")
+		regra(binance, "BAND")
+		regra(binance, "EOS")
+		regra(binance, "XRP")
+		regra(binance, "ADA")
+		regra(binance, "TRX")
+		regra(binance, "WAVES")
+
 	}
 }
