@@ -14,7 +14,6 @@ func regraUSDT(binance *binance.Binance, coin string) {
 		log.Println(err)
 		return
 	}
-
 	if len(BTCUSDT.Bids) == 0 {
 		return
 	}
@@ -24,7 +23,6 @@ func regraUSDT(binance *binance.Binance, coin string) {
 		log.Println(err)
 		return
 	}
-
 	if len(COINUSDT.Asks) == 0 {
 		return
 	}
@@ -34,7 +32,6 @@ func regraUSDT(binance *binance.Binance, coin string) {
 		log.Println(err)
 		return
 	}
-
 	if len(COINBTC.Bids) == 0 {
 		return
 	}

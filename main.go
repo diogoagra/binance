@@ -23,10 +23,12 @@ func main() {
 		markets[b.BaseAsset] = append(markets[b.BaseAsset], b.QuoteAsset)
 	}
 
-	for a, b := range markets {
-		if inArray("BTC", b) && inArray("USDT", b) && inArray("BNB", b) {
-			regraUSDT(binance, a)
-			regra(binance, a)
+	for {
+		for a, b := range markets {
+			if inArray("BTC", b) && inArray("USDT", b) && inArray("BNB", b) {
+				regraUSDT(binance, a)
+				regra(binance, a)
+			}
 		}
 	}
 }

@@ -15,7 +15,6 @@ func regra(binance *binance.Binance, coin string) {
 		log.Println(err)
 		return
 	}
-
 	if len(BNBBTC.Asks) == 0 {
 		return
 	}
@@ -25,7 +24,6 @@ func regra(binance *binance.Binance, coin string) {
 		log.Println(err)
 		return
 	}
-
 	if len(COINBNB.Asks) == 0 {
 		return
 	}
@@ -35,17 +33,13 @@ func regra(binance *binance.Binance, coin string) {
 		log.Println(err)
 		return
 	}
-
 	if len(COINBTC.Bids) == 0 {
 		return
 	}
 
 	BNB := orderCalc("buy", BTC, binance.StringToFloat(BNBBTC.Asks[0][0]))
-
 	COIN := orderCalc("buy", BNB, binance.StringToFloat(COINBNB.Asks[0][0]))
-
 	LBTC := orderCalc("sell", COIN, binance.StringToFloat(COINBTC.Bids[0][0]))
-
 	percent := (LBTC - BTC) * 100 / BTC
 
 	if percent > 0 {
