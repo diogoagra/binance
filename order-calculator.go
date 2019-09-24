@@ -18,8 +18,9 @@ func orderCalc(kind string, quantity, rate float64) (total float64, totalwithout
 
 	fee := (total / 100) * feeBINANCE
 
-	total = ToFixed(total-fee, 8)
 	totalwithoutfee = ToFixed(total, 8)
+
+	total = ToFixed(total-fee, 8)
 
 	return
 }
