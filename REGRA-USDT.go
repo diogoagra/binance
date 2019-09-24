@@ -35,7 +35,8 @@ func regraUSDT(binance *binance.Binance, coin string) {
 		return
 	}
 
-	BTC := 0.002
+	balances := GetBalances(binance)
+	BTC := binance.StringToFloat(balances["BTC"])
 	USDT := orderCalc("sell", BTC, binance.StringToFloat(BTCUSDT.Bids[0][0]))
 	COIN := orderCalc("buy", USDT, binance.StringToFloat(COINUSDT.Asks[0][0]))
 	LBTC := orderCalc("sell", COIN, binance.StringToFloat(COINBTC.Bids[0][0]))
@@ -45,7 +46,7 @@ func regraUSDT(binance *binance.Binance, coin string) {
 	if percent > 0 {
 		log.Printf("%-10s - %-5s %.3f (%.8f - %.8f)\n", "Regra USDT", coin, percent, BTC, LBTC)
 
-		balances := GetBalances(binance)
+		balances = GetBalances(binance)
 		binance.OrderMarket("BTCUSDT", "SELL", balances["BTC"])
 		balances = GetBalances(binance)
 		binance.OrderMarket(coin+"USDT", "BUY", balances["USDT"])

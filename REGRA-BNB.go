@@ -7,7 +7,6 @@ import (
 )
 
 func regraBNB(binance *binance.Binance, coin string) {
-	BTC := 0.002
 
 	BNBBTC, err := binance.GetOrderBook("BNBBTC")
 	if err != nil {
@@ -36,6 +35,8 @@ func regraBNB(binance *binance.Binance, coin string) {
 		return
 	}
 
+	balances := GetBalances(binance)
+	BTC := binance.StringToFloat(balances["BTC"])
 	BNB := orderCalc("buy", BTC, binance.StringToFloat(BNBBTC.Asks[0][0]))
 	COIN := orderCalc("buy", BNB, binance.StringToFloat(COINBNB.Asks[0][0]))
 	LBTC := orderCalc("sell", COIN, binance.StringToFloat(COINBTC.Bids[0][0]))
@@ -43,7 +44,7 @@ func regraBNB(binance *binance.Binance, coin string) {
 
 	if percent > 0 {
 		log.Printf("%-10s - %-5s %.3f (%.8f - %.8f)\n", "Regra BNB", coin, percent, BTC, LBTC)
-		balances := GetBalances(binance)
+		balances = GetBalances(binance)
 		binance.OrderMarket("BNBBTC", "BUY", balances["BTC"])
 		balances = GetBalances(binance)
 		binance.OrderMarket(coin+"BNB", "BUY", balances["USDT"])
