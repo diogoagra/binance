@@ -3,6 +3,7 @@ package binance
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"strconv"
 	"time"
 )
@@ -24,6 +25,7 @@ func (b *Binance) OrderMarket(symbol, side, quantity string) {
 	parameters := fmt.Sprintf("symbol=%s&side=%s&type=MARKET&timeInForce=GTC&quantity=%s&recvWindow=5000&timestamp=%s", symbol, side, quantity, timestamp)
 	response, err := b.GetURL("/api/v3/order?"+fmt.Sprintf("%s&signature=%s", parameters, b.Sign(parameters)), "POST", true)
 	if err != nil {
+		log.Println(err)
 		return
 	}
 	fmt.Println(string(response))
