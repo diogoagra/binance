@@ -8,6 +8,8 @@ import (
 
 func regraBNB(binance *binance.Binance, coin string) {
 
+	balances := GetBalances(binance)
+
 	BNBBTC, err := binance.GetOrderBook("BNBBTC")
 	if err != nil {
 		log.Println(err)
@@ -35,7 +37,6 @@ func regraBNB(binance *binance.Binance, coin string) {
 		return
 	}
 
-	balances := GetBalances(binance)
 	BTC := binance.StringToFloat(balances["BTC"])
 	BNB, Bnb := orderCalc("buy", BTC, binance.StringToFloat(BNBBTC.Asks[0][0]))
 	COIN, Coin := orderCalc("buy", BNB, binance.StringToFloat(COINBNB.Asks[0][0]))

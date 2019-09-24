@@ -8,6 +8,8 @@ import (
 
 func regraUSDT(binance *binance.Binance, coin string) {
 
+	balances := GetBalances(binance)
+
 	BTCUSDT, err := binance.GetOrderBook("BTCUSDT")
 	if err != nil {
 		log.Println(err)
@@ -35,7 +37,6 @@ func regraUSDT(binance *binance.Binance, coin string) {
 		return
 	}
 
-	balances := GetBalances(binance)
 	BTC := binance.StringToFloat(balances["BTC"])
 	USDT, Usdt := orderCalc("sell", BTC, binance.StringToFloat(BTCUSDT.Bids[0][0]))
 	COIN, Coin := orderCalc("buy", USDT, binance.StringToFloat(COINUSDT.Asks[0][0]))

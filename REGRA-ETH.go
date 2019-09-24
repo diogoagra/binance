@@ -6,12 +6,9 @@ import (
 	"github.com/diogoagra/binance/binance"
 )
 
-// comprar eth com btc
-// com eth comprar qualquer moeda
-// com qualquer moeda vender por btc
-// verificar saldo
-
 func regraETH(binance *binance.Binance, coin string) {
+
+	balances := GetBalances(binance)
 
 	ETHBTC, err := binance.GetOrderBook("ETHBTC")
 	if err != nil {
@@ -40,7 +37,6 @@ func regraETH(binance *binance.Binance, coin string) {
 		return
 	}
 
-	balances := GetBalances(binance)
 	BTC := binance.StringToFloat(balances["BTC"])
 	ETH, Eth := orderCalc("buy", BTC, binance.StringToFloat(ETHBTC.Asks[0][0]))
 	COIN, Coin := orderCalc("buy", ETH, binance.StringToFloat(COINETH.Asks[0][0]))
