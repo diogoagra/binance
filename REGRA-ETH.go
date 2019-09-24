@@ -42,19 +42,16 @@ func regraETH(binance *binance.Binance, coin string) {
 
 	balances := GetBalances(binance)
 	BTC := binance.StringToFloat(balances["BTC"])
-	ETH := orderCalc("buy", BTC, binance.StringToFloat(ETHBTC.Asks[0][0]))
-	COIN := orderCalc("buy", ETH, binance.StringToFloat(COINETH.Asks[0][0]))
-	LBTC := orderCalc("sell", COIN, binance.StringToFloat(COINBTC.Bids[0][0]))
+	ETH, Eth := orderCalc("buy", BTC, binance.StringToFloat(ETHBTC.Asks[0][0]))
+	COIN, Coin := orderCalc("buy", ETH, binance.StringToFloat(COINETH.Asks[0][0]))
+	LBTC, Lbtc := orderCalc("sell", COIN, binance.StringToFloat(COINBTC.Bids[0][0]))
 
 	percent := (LBTC - BTC) * 100 / BTC
 
 	if percent > 0 {
 		log.Printf("%-10s - %-5s %.3f (%.8f - %.8f)\n", "Regra ETH", coin, percent, BTC, LBTC)
-		balances = GetBalances(binance)
-		binance.OrderMarket("ETHBTC", "BUY", balances["BTC"])
-		balances = GetBalances(binance)
-		binance.OrderMarket(coin+"ETH", "BUY", balances["ETH"])
-		balances = GetBalances(binance)
-		binance.OrderMarket(coin+"BTC", "SELL", balances[coin])
+		binance.OrderMarket("ETHBTC", "BUY", Eth)
+		binance.OrderMarket(coin+"ETH", "BUY", Coin)
+		binance.OrderMarket(coin+"BTC", "SELL", Lbtc)
 	}
 }

@@ -6,7 +6,7 @@ import (
 
 const feeBINANCE = 0.10
 
-func orderCalc(kind string, quantity, rate float64) (total float64) {
+func orderCalc(kind string, quantity, rate float64) (total float64, totalwithoutfee float64) {
 
 	if kind == "buy" {
 		total = (quantity / rate)
@@ -19,6 +19,7 @@ func orderCalc(kind string, quantity, rate float64) (total float64) {
 	fee := (total / 100) * feeBINANCE
 
 	total = ToFixed(total-fee, 8)
+	totalwithoutfee = ToFixed(total, 8)
 
 	return
 }

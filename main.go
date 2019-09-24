@@ -11,6 +11,7 @@ func main() {
 	binance := binance.New("zVpTDWFAdBthlDFalBlydV45qnp5kdaBxPLx1NKCVkNLyEGzHlshsMsPgjVBTxLz", "YnWoIZaxYlESbHSHTBc2l3BAc5Sp9GkYPZkeyCuG3VwjDXvjrfbqmMndeK9f4i4l", false)
 
 	markets := make(map[string][]string)
+	qtdaMin := make(map[string]string)
 
 	marketsInfo, err := binance.ExchangeInfo()
 	if err != nil {
@@ -19,6 +20,9 @@ func main() {
 	}
 
 	for _, b := range marketsInfo.Symbols {
+
+		qtdaMin[b.BaseAsset] = b.Filters[0].MinQty
+
 		markets[b.BaseAsset] = append(markets[b.BaseAsset], b.QuoteAsset)
 	}
 
