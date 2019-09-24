@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/diogoagra/binance/binance"
@@ -44,6 +43,6 @@ func regraUSDT(binance *binance.Binance, coin string) {
 	percent := (LBTC - BTC) * 100 / BTC
 
 	if percent > 0 {
-		fmt.Printf("%s %.3f (%.8f - %.8f)\n", coin, percent, BTC, LBTC)
+		log.Printf("%-10s - %-5s %.3f (%.8f - %.8f)\n", "Regra USDT", coin, percent, BTC, LBTC)
 	}
 }

@@ -9,7 +9,6 @@ import (
 
 func main() {
 	binance := binance.New("zVpTDWFAdBthlDFalBlydV45qnp5kdaBxPLx1NKCVkNLyEGzHlshsMsPgjVBTxLz", "YnWoIZaxYlESbHSHTBc2l3BAc5Sp9GkYPZkeyCuG3VwjDXvjrfbqmMndeK9f4i4l", false)
-	// binance.OrderTest("BTCUSDT", "BUY", 0.1, 10040.54)
 
 	markets := make(map[string][]string)
 
@@ -25,9 +24,14 @@ func main() {
 
 	for {
 		for a, b := range markets {
+			if inArray("BTC", b) && inArray("ETH", b) {
+				regraETH(binance, a)
+			}
+			if inArray("BTC", b) && inArray("BNB", b) {
+				regraBNB(binance, a)
+			}
 			if inArray("BTC", b) && inArray("USDT", b) && inArray("BNB", b) {
 				regraUSDT(binance, a)
-				regra(binance, a)
 			}
 		}
 	}
