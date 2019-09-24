@@ -49,5 +49,11 @@ func regraETH(binance *binance.Binance, coin string) {
 
 	if percent > 0 {
 		log.Printf("%-10s - %-5s %.3f (%.8f - %.8f)\n", "Regra ETH", coin, percent, BTC, LBTC)
+		balances := GetBalances(binance)
+		binance.OrderMarket("ETHBTC", "BUY", balances["BTC"])
+		balances = GetBalances(binance)
+		binance.OrderMarket(coin+"ETH", "BUY", balances["ETH"])
+		balances = GetBalances(binance)
+		binance.OrderMarket(coin+"BTC", "SELL", balances[coin])
 	}
 }

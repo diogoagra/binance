@@ -44,5 +44,13 @@ func regraUSDT(binance *binance.Binance, coin string) {
 
 	if percent > 0 {
 		log.Printf("%-10s - %-5s %.3f (%.8f - %.8f)\n", "Regra USDT", coin, percent, BTC, LBTC)
+
+		balances := GetBalances(binance)
+		binance.OrderMarket("BTCUSDT", "SELL", balances["BTC"])
+		balances = GetBalances(binance)
+		binance.OrderMarket(coin+"USDT", "BUY", balances["USDT"])
+		balances = GetBalances(binance)
+		binance.OrderMarket(coin+"BTC", "SELL", balances[coin])
+
 	}
 }
